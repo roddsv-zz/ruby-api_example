@@ -1,27 +1,27 @@
 class BooksController < ApplicationController
-  def index
-    render json: Book.all
-  end
-
-  def create
-    book = Book.new(book_params)
-
-    if book.save
-      render json: book, status: :created     
-    else
-      render json: book.errors, status: :unprocessable_entity
+    def index
+      render json: Book.all
     end
-  end
 
-  def destroy
-    Book.find(params[:id]).destroy!
+    def create
+      book = Book.new(book_params)
 
-    head :no_content
-  end
+      if book.save
+        render json: book, status: :created     
+      else
+        render json: book.errors, status: :unprocessable_entity
+      end
+    end
 
-  private
+    def destroy
+      Book.find(params[:id]).destroy!
 
-  def book_params
-    params.require(:book).permit(:author, :title)
-  end
+      head :no_content
+    end
+
+    private
+
+    def book_params
+      params.require(:book).permit(:author, :title)
+    end
 end
